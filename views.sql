@@ -11,7 +11,7 @@ CREATE VIEW FinishedCourses AS(
 	ON courses.code = taken.course
 );
 CREATE VIEW PassedCourses AS(
-	SELECT * FROM finishedcourses
+	SELECT student,course,credits FROM finishedcourses
 	WHERE grade != 'U'
 );
 CREATE VIEW Registrations AS(
@@ -61,18 +61,18 @@ research AS (SELECT student, COALESCE(sum(passedcourses.credits),0) AS researchC
 WHERE classified.classification = 'research'  AND passedcourses.course = classified.course
 GROUP BY student
 UNION
-SELECT idnr, 0 AS mathCredits FROM students
+SELECT idnr, 0 AS researchCredits FROM students
 EXCEPT 
-SELECT student,0 AS mathCredits FROM passedcourses
+SELECT student,0 AS researchCredits FROM passedcourses
 ORDER BY student),
 
 seminar AS (SELECT student, COALESCE(count(passedcourses.credits),0) AS seminarCourses FROM passedcourses, classified
 WHERE classified.classification = 'seminar'  AND passedcourses.course = classified.course
 GROUP BY student
 UNION
-SELECT idnr, 0 AS mathCredits FROM students
+SELECT idnr, 0 AS seminarCourses FROM students
 EXCEPT 
-SELECT student,0 AS mathCredits FROM passedcourses
+SELECT student,0 AS seminarCourses FROM passedcourses
 ORDER BY student),
 
 recommended AS(SELECT student,course FROM studentbranches
@@ -111,8 +111,8 @@ SELECT idnr, FALSE AS qualified FROM students
 EXCEPT
 SELECT idnr, FALSE AS qualified FROM qualifiedTrue)
 
-SELECT totalcredits.idnr,totalcredits.totalcredits,mandatoryleft.mandatoryleft,
-mathcredits.mathCredits,research.researchCredits,seminar.seminarcourses,qualified.qualified
+SELECT totalcredits.idnr AS student,totalcredits.totalcredits,mandatoryleft.mandatoryleft,
+mathcredits.mathCredits,research.researchCredits,COALESCE(seminar.seminarcourses,0) AS seminarcourses,qualified.qualified
 FROM totalcredits
 LEFT JOIN mandatoryleft
 ON totalcredits.idnr = mandatoryleft.idnr
