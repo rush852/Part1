@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS Departments, Programs, ProgramDepartments, Students, 
+    Branches, Courses, Prerequisites, LimitedCourses, Classifications,
+    StudentBranches, Classified, MandatoryProgram,
+    MandatoryBranch, RecommendedBranch, Registered, 
+    Taken, WaitingList CASCADE;
+
+DROP VIEW IF EXISTS BasicInformation, FinishedCourses,
+Registrations, UnreadMandatory, PathToGraduation;
+
+DROP FUNCTION IF EXISTS try_register();
+DROP FUNCTION IF EXISTS unregister_from_course();
+
+DROP TRIGGER IF EXISTS try_to_register ON Registrations;
+DROP TRIGGER IF EXISTS unregister_from_course ON Registrations;
