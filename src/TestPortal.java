@@ -21,8 +21,12 @@ public class TestPortal {
          System.out.println(c.register("2222222222", "CCC333")); 
          pause();
 
+         System.out.println(c.unregister("2222222222","CCC333 OR * IN (SELECT students.idnr FROM students) AND * IN (SELECT courses.code FROM courses)"));
+         pause();
+
          prettyPrint(c.getInfo("2222222222"));
 
+          //System.out.println(c.unregister("*","*"));
 
 
       
