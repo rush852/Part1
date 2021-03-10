@@ -1,0 +1,27 @@
+Domain( dname dabbr pname pabbr bname ccode cname ccredits capacity classification
+idnr sname slogin prerequisites grade position) 
+
+dname -> dabbr
+dabbr -> dname
+
+pname -> pabbr
+
+cname -> ccode
+ccode -> ccredits
+ccode -> cname 
+ccode -> capacity
+ccode -> dname
+
+idnr -> sname
+idnr -> slogin
+idnr -> pname
+idnr -> bname
+slogin -> idnr
+
+ccode idnr -> position
+ccode position -> idnr
+ccode idnr -> grade
+
+Used https://www.grammaticalframework.org/qconv/qconv-nf.html to get 
+distinct tables.
+

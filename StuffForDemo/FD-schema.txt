@@ -1,0 +1,13 @@
+One(_pname_,pabbr)
+
+Two(_slogin_,idnr,pname,bname,sname)
+
+Three(_dname_,_dabbr_)
+
+
+Four(_cname_,dabbr,_ccode_,ccredits,capacity)
+
+
+Five(_cname_,_slogin_,grade,_position_)
+
+
